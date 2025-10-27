@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
 
 int main()
 {
@@ -29,16 +30,11 @@ int main()
         {
             const std::vector<int> &indexs = it->second;
             
-            int count = 0;
-            for (const int index : indexs)
-            {
-                if ((l <= index) && (index <= r))
-                {
-                    count++;
-                }
-            }
+            std::vector<int>::const_iterator lb = std::lower_bound(indexs.begin(), indexs.end(), l);
+            std::vector<int>::const_iterator ub = std::upper_bound(indexs.begin(), indexs.end(), r);
             
-            std::cout << count << "\n";
+            int count = (ub - lb);
+            std::cout << count << '\n';
         }
         else
         {
